@@ -50,6 +50,16 @@ const userCtrl = {
             res.status(400)
             res.json(error)
         }
+    },
+    getAllUsers: async (req, res) => {
+        const users = await User.find()
+        try {
+            res.status(200)
+            res.json(users)
+        } catch (error) {
+            res.status(400)
+            res.json(error)
+        }
     }
 
 }
