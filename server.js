@@ -1,11 +1,15 @@
 /* Importation des modules */
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
+
 require('dotenv')
 .config()
 
 
 const app = express();
+app.use(express.json());
+app.use(cors());
 
 
 /* Connect to database mongodb */
@@ -26,7 +30,7 @@ mongoose.connect (URL, {
 })
 
 /* Loading routes */
-app.use('api/user', require('../routes/UserRoutes'))
+app.use ('/api/user', require('./routes/user'));
 
 /*Envoi de message au console de navigation */
 app.get('/', (req, res) => {
