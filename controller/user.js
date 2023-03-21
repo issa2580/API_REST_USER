@@ -60,6 +60,17 @@ const userCtrl = {
             res.status(400)
             res.json(error)
         }
+    },
+    getUser: async(req, res) => {
+        const { id } = req.params;
+        const user = await User.findById(id)
+        try {
+            res.status(200)
+            res.json(user)
+        } catch (error) {
+            res.status(400)
+            res.json(error)
+        }
     }
 
 }
