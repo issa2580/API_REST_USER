@@ -25,6 +25,9 @@ mongoose.connect (URL, {
     console.log(error)
 })
 
+/* Loading routes */
+app.use('api/user', require('../routes/UserRoutes'))
+
 /*Envoi de message au console de navigation */
 app.get('/', (req, res) => {
     res.send('api rest user manager authentication')
