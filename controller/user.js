@@ -1,10 +1,13 @@
-const User = require('../models/user')
+const User = require('../models/user');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const userCtrl = {
     register: async(req, res) => {
-        const { name, email, password } = req.body;        
-        const UserExit = await User.findOne({ email: email})
-        if (UserExit) {
+        try {
+            const { name, email, password } = req.body;        
+        const user = await User.findOne({ email: email})
+        if (user) {
             res.status(400)
             res.json({ msg: 'User exist process exit'})
             return;
@@ -21,14 +24,23 @@ const userCtrl = {
         })
         await NewUser.save();
         res.status(200)
-        res.json(NewUser)
+        res.json({
+            id: NewUser._id,
+            email: NewUser.email,
+            password: NewUser.password,
+            token: genToken({ id: NewUser._id })
+        })
         console.log(NewUser);
+        } catch (error) {
+            res.status(400)
+            res.json(error)
+        }
     },
     login: async(req, res) => {
         try {
             const { email, password} = req.body;
-            const UserExit = await User.findOne({ email: email})
-            if (!UserExit) {
+            const user = await User.findOne({ email: email})
+            if (!user) {
                 res.status(400)
                 res.json({ msg: "User does not exist process exit"})
                 return;
@@ -38,13 +50,19 @@ const userCtrl = {
                 res.json({ msg: "Password required process exit"})
                 return;
             }
-            // if (password !== UserExit.password) {
-            //     res.status(400)
-            //     res.json({ msg: "Password incorrect process exit"})
-            //     return;
-            // }
+            const isMatch = await bcrypt.compare(password, user.password)
+            if (!isMatch) {
+                res.status(400)
+                res.json({ msg: "Password incorrect process exit"})
+                return;
+            }
             res.status(200)
-            res.json(UserExit)
+            res.json({
+                id: user._id,
+                email: user.email,
+                password: user.password,
+                token: genToken({ id: user._id })
+            })
             console.log(UserExit);
         } catch (error) {
             res.status(400)
@@ -117,5 +135,10 @@ const userCtrl = {
 
 }
 
+const genToken = (user) =>{
+    return jwt.sign (user, process.env.TOKEN, {
+        expiresIn: '60d',
+    });
+};
 
 module.exports = userCtrl
