@@ -71,6 +71,29 @@ const userCtrl = {
             res.status(400)
             res.json(error)
         }
+    },
+    updateUser: async(req, res) => {
+        /* Found user */
+        const user = await User.findById(req.params.id)
+        if(user) {
+            /* update user */
+            const update = await User.findByIdAndUpdate(
+                req.params.id,
+                req.body, 
+                {
+                new: true,
+                runValidators: true
+                }
+            )
+            /* return user */
+            res.status(200)
+            res.json(update)
+        }
+        else {
+            /* return error */
+            res.status(400)
+            res.json(error)
+        }
     }
 
 }
