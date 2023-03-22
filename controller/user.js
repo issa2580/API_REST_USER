@@ -94,6 +94,25 @@ const userCtrl = {
             res.status(400)
             res.json(error)
         }
+    },
+    deleteUser: async(req, res) => {
+        const user = await User.findById(req.params.id)
+        if(user) {
+            const deleted = await User.findByIdAndDelete(
+                req.params.id,
+                req.body,
+                {
+                    new: true,
+                    runValidators: true
+                }
+            )
+            res.status(200)
+            res.json(deleted)
+        }
+        else {
+            res.status(400)
+            res.json(error)
+        }
     }
 
 }
