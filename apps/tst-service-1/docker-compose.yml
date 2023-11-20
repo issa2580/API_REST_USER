@@ -14,6 +14,7 @@ services:
       DB_URL: mongodb://${DB_USER}:${DB_PASSWORD}@db:27017/${DB_NAME}?authSource=admin
     depends_on:
       - migrate
+    restart: on-failure
   migrate:
     build:
       context: .
@@ -45,9 +46,9 @@ services:
         --bind_ip_all --keyFile /data/cert.crt --replSet rs0
     healthcheck:
       test: "test $$(mongosh --quiet -u  $${MONGO_INITDB_ROOT_USERNAME} -p
-        $${MONGO_INITDB_ROOT_PASSWORD} --eval \"try { rs.initiate({ _id: 'rs0',
-        members: [{ _id: 0, host: 'db' }] }).ok } catch (_) { rs.status().ok
-        }\") -eq 1"
+        $${MONGO_INITDB_ROOT_PASSWORD} --eval \"try { rs.initiate({ _id:
+        'rs0',members: [{ _id: 0, host: 'db' }] }).ok } catch (_) {
+        rs.status().ok}\") -eq 1"
       start_period: 5s
       interval: 10s
       timeout: 10s
