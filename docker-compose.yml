@@ -1,0 +1,26 @@
+version: "3.8"
+services:
+  nodejs:
+    build:
+      context: .
+      dockerfile: node.Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGODB_URL=mongodb://mongodb:27017/API_USER_MANAGER_AUTH
+    depends_on:
+      - mongodb
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+  mongodb:
+    build:
+      context: .
+      dockerfile: mongo.Dockerfile
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
