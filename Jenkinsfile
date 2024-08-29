@@ -12,7 +12,7 @@ pipeline {
         stage('Push Docker Images') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', REGISTER_CREDENTIAL) {                     
+                    docker.withRegistry('https://index.docker.io/v1/', REGISTER_CREDENTIAL) {                     
                         sh "docker tag backend-node-nodejs:latest martinez42/backend-node-nodejs:latest"
                         sh "docker tag backend-node-mongodb:latest martinez42/backend-node-mongodb:latest"                      
                         sh "docker push martinez42/backend-node-nodejs:latest"
