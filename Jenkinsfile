@@ -1,9 +1,9 @@
 pipeline {
     agent any
     environment {
-        NODE_IMAGE = "martinez42/backend-node-nodejs"
-        MONGO_IMAGE = "martinez42/backend-node-mongodb"
-        REGISTER_CREDENTIAL = "docker-hub-credential"
+        NodeImage = "martinez42/backend-node-nodejs"
+        MongoImage = "martinez42/backend-node-mongodb"
+        registryCredential = "docker-hub-credential"
     }
     stages {
         stage ("Build docker images") {
@@ -16,8 +16,8 @@ pipeline {
                 echo "Testing application"
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', registryCredential) {
-                        NODE_IMAGE.push('latest')
-                        MONGO_IMAGE.push('latest')
+                        NodeImage.push('latest')
+                        MongoImage.push('latest')
                     }
                 }
             }
