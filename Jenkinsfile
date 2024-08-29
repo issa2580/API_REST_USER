@@ -1,7 +1,7 @@
 pipeline {
     agent any
         stages {
-            stage ("Build docker images") {
+            stage ("Build docker image") {
                 steps {
                     sh "docker-compose up --build -d"
                 }
