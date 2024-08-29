@@ -1,23 +1,24 @@
 pipeline {
     agent any
-    environment {
-        NodeImage = "martinez42/backend-node-nodejs"
-        MongoImage = "martinez42/backend-node-mongodb"
-        registryCredential = "docker-hub-credential"
-    }
+    // environment {
+    //     NodeImage = "martinez42/backend-node-nodejs"
+    //     MongoImage = "martinez42/backend-node-mongodb"
+    //     registryCredential = "docker-hub-credential"
+    // }
     stages {
         stage ("Build docker images") {
             steps {
                 sh "docker-compose up --build -d"
             }
         }
-        stage('Pushing Images to Docker Registry') {
+        stage('Push Docker Images') {
             steps {
-                echo "Testing application"
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', registryCredential) {
-                        NodeImage.push('latest')
-                        MongoImage.push('latest')
+                    docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credential') {
+                        sh "docker tag backend-node-nodejs:latest martinez42/backend-node-nodejs:latest"
+                        sh "docker tag backend-node-mongodb:latest martinez42/backend-node-mongodb:latest"
+                        sh "docker push martinez42/backend-node-nodejs:latest"
+                        sh "docker push martinez42/backend-node-mongodb:latest"
                     }
                 }
             }
