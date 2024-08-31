@@ -1,10 +1,5 @@
 pipeline {
     agent any
-    // environment {
-    //     NodeImage = "martinez42/backend-node-nodejs"
-    //     MongoImage = "martinez42/backend-node-mongodb"
-    //     registryCredential = "docker-hub-credential"
-    // }
     stages {
         stage ("Build docker images") {
             steps {
