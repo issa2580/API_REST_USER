@@ -1,4 +1,5 @@
 version: "3.8"
+
 services:
   nodejs:
     build:
@@ -10,17 +11,41 @@ services:
       - MONGODB_URL=mongodb://mongodb:27017/API_USER_MANAGER_AUTH
     depends_on:
       - mongodb
-    dns:
-      - 8.8.8.8
-      - 8.8.4.4
+
   mongodb:
     build:
       context: .
       dockerfile: mongo.Dockerfile
     ports:
       - "27017:27017"
-    volumes:
-      - mongo-data:/data/db
+    # volumes:
+    #   - mongo-data:/data/db
 
-volumes:
-  mongo-data:
+  sonarqube:
+    image: sonarqube:latest
+    environment:
+      - SONAR_JDBC_URL=jdbc:postgresql://postgres:5432/sonar
+      - SONAR_JDBC_USERNAME=sonar
+      - SONAR_JDBC_PASSWORD=sonar
+      - SONAR_SEARCH_JAVAOPTS=-Xms512m -Xmx512m # Ajustez ces valeurs si nécessaire
+    ports:
+      - "9000:9000"
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=sonar
+      - POSTGRES_PASSWORD=sonar
+      - POSTGRES_DB=sonar
+    # volumes:
+    #   - postgres_data:/var/lib/postgresql/data
+# volumes:
+# mongo-data:
+# postgres_data:
+# sonar_conf:
+# sonar_data:
+# sonar_extensions:
+# sonar_plugins:
+
