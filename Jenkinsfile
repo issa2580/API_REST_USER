@@ -18,9 +18,15 @@ pipeline {
                 }
             }
         }
-        stage ("Test") {
+        stage ("Analysis with SonarQube") {
             steps {
-                echo "Testing application"
+                nodejs(nodeJSInstallationName: 'nodejs') {
+                    sh "npm install"
+                    withSonarQubeEnv('sonar') {
+                        sh "npm install sonar-scanner"
+                        sh "npm run sonar"
+                    }
+                }
             }
         }
         stage ("Deploy") {
