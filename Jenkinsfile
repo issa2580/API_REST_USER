@@ -1,12 +1,12 @@
 pipeline {
     agent any
     stages {
-        stage ("Build docker images") {
+        stage ("Docker build ") {
             steps {
                 sh "docker-compose up --build -d"
             }
         }
-        stage('Push Docker Images') {
+        stage('Docker push') {
             steps {
                 script {
                     docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credential') {
@@ -28,7 +28,7 @@ pipeline {
                 }
             }
         }
-        stage ("Deploy") {
+        stage ("Kubernetes deploy") {
             steps {
                 echo "Deploying application"
             }
