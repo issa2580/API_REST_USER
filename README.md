@@ -17,7 +17,7 @@
 3- Docker: Containerization
 5- Kubernetes: Orchestration
 6- Prometheus: Metrics collection
-7- Grafana: Monitoring dashboards
+7- Grafana: Monitoring dashboard
 
 📍️Quickstart Guide
 
