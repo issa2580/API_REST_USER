@@ -30,7 +30,9 @@ pipeline {
         }
         stage ("Kubernetes deploy") {
             steps {
-                echo "Deploying application"
+                sh 'kubectl apply -f kubernetes/deployments'
+                sh 'kubectl apply -f kubernetes/services'
+                sh 'kubectl apply -f kubernetes/configmaps'
             }
         }
     }
