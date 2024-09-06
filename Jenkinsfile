@@ -32,7 +32,7 @@ pipeline {
             steps {
                 sh 'kubectl apply -f kubernetes/deployments'
                 sh 'kubectl apply -f kubernetes/services'
-                // sh 'kubectl apply -f kubernetes/configmaps'
+                sh 'kubectl apply -f kubernetes/configmaps'
             }
         }
     }
