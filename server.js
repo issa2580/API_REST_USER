@@ -54,18 +54,18 @@ const swaggerSpec = swaggerJsdm(options);
 app.use("/api-docs", swagger.serve, swagger.setup(swaggerSpec));
 
 /* Loading routes */
-app.use("/api/user", require("../routes/user"));
+app.use("/api/user", require("./routes/user"));
 
 /*Envoi de message au console de navigation */
 app.get("/", (req, res) => {
   res.send("api rest user manager authentication");
 });
 
-/* Port de navigation */
-// const port = 5000;
-// app.listen(port, (err) => {
-//   if (err) {
-//     console.log(err);
-//   }
-//   console.log(`Appcation is running on port ${port}`);
-// });
+//  Port de navigation
+const port = 5000;
+app.listen(port, (err) => {
+  if (err) {
+    console.log(err);
+  }
+  console.log(`Appcation is running on port ${port}`);
+});
