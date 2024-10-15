@@ -2,7 +2,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const swaggerJsdm = require("swagger-jsdoc");
+const swaggerJsdoc = require("swagger-jsdoc");
 const swagger = require("swagger-ui-express");
 
 require("dotenv").config();
@@ -53,7 +53,7 @@ const options = {
   apis: ["./routes/*.js"],
 };
 
-const swaggerSpec = swaggerJsdm(options);
+const swaggerSpec = swaggerJsdoc(options); // Corrige ici
 
 // Loading swagger api routes
 app.use("/api-docs", swagger.serve, swagger.setup(swaggerSpec));
