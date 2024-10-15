@@ -34,10 +34,13 @@ const userCtrl = require("../controller/user");
  *           schema:
  *             type: object
  *             required:
- *               - username
+ *               - name:
+ *               - email
  *               - password
  *             properties:
- *               username:
+ *               name:
+ *                 type: string
+ *               email:
  *                 type: string
  *               password:
  *                 type: string
@@ -60,10 +63,10 @@ router.post("/register", userCtrl.register);
  *           schema:
  *             type: object
  *             required:
- *               - username
+ *               - email
  *               - password
  *             properties:
- *               username:
+ *               email:
  *                 type: string
  *               password:
  *                 type: string
@@ -91,7 +94,7 @@ router.post("/login", userCtrl.login);
  *                 properties:
  *                   id:
  *                     type: string
- *                   username:
+ *                   email:
  *                     type: string
  */
 router.get("/allUsers", userCtrl.getAllUsers);
@@ -119,7 +122,7 @@ router.get("/allUsers", userCtrl.getAllUsers);
  *               properties:
  *                 id:
  *                   type: string
- *                 username:
+ *                 email:
  *                   type: string
  */
 router.get("/:id", userCtrl.getUser);
@@ -144,7 +147,7 @@ router.get("/:id", userCtrl.getUser);
  *           schema:
  *             type: object
  *             properties:
- *               username:
+ *               email:
  *                 type: string
  *               password:
  *                 type: string
