@@ -25,6 +25,15 @@ mongoose
     console.log(error);
   });
 
+app.get("/api/tstconnection", async (req, res) => {
+  try {
+    await mongoose.connection.db.admin().ping();
+    res.status(200).send("MongoDB connection successful");
+  } catch (error) {
+    res.status(500).send("Failed to connect to MongoDB");
+  }
+});
+
 // Loading swagger api
 const options = {
   definition: {
