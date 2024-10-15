@@ -16,7 +16,7 @@ app.use(cors());
 const URL = process.env.MONGODB_URL;
 mongoose
   .connect(URL, {
-    autoIndex: false,
+    // autoIndex: false,
   })
   .then(() => {
     console.log("Connected to database");
