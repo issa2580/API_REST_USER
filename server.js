@@ -12,16 +12,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
+app.use(timeout("10s"));
+app.use((req, res, next) => {
+  if (!req.timedout) next();
+});
+
 /* Connect to database mongodb */
 const URL = process.env.MONGODB_URL;
 mongoose
   .connect(URL, {
-    /*
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-    useCreateIndex: true
-    */
+    autoIndex: false,
   })
   .then(() => {
     console.log("Connected to database");
