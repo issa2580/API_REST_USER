@@ -23,7 +23,7 @@ const userCtrl = require("../controller/user");
 
 /**
  * @swagger
- * /api/users/register:
+ * /api/user/register:
  *   post:
  *     summary: Register a new user
  *     tags: [Users]
@@ -52,7 +52,7 @@ router.post("/register", userCtrl.register);
 
 /**
  * @swagger
- * /api/users/login:
+ * /api/user/login:
  *   post:
  *     summary: Log in a user
  *     tags: [Users]
@@ -78,7 +78,7 @@ router.post("/login", userCtrl.login);
 
 /**
  * @swagger
- * /api/users/allUsers:
+ * /api/user/allUsers:
  *   get:
  *     summary: Get all users
  *     tags: [Users]
@@ -101,7 +101,7 @@ router.get("/allUsers", userCtrl.getAllUsers);
 
 /**
  * @swagger
- * /api/users/{id}:
+ * /api/user/{id}:
  *   get:
  *     summary: Get a user by ID
  *     tags: [Users]
@@ -129,7 +129,7 @@ router.get("/:id", userCtrl.getUser);
 
 /**
  * @swagger
- * /api/users/{id}:
+ * /api/user/{id}:
  *   put:
  *     summary: Update a user by ID
  *     tags: [Users]
@@ -159,7 +159,7 @@ router.put("/:id", userCtrl.updateUser);
 
 /**
  * @swagger
- * /api/users/{id}:
+ * /api/user/{id}:
  *   delete:
  *     summary: Delete a user by ID
  *     tags: [Users]
