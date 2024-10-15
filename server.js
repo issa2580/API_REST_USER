@@ -2,6 +2,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const swaggerJsdm = require("swagger-jsdoc");
+const swagger = require("swagger-ui-express");
 
 require("dotenv").config();
 
@@ -27,6 +29,29 @@ mongoose
   .catch((error) => {
     console.log(error);
   });
+
+// Loading swagger api
+const options = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "User Manager API",
+      version: "1.0.0",
+      description: "A simple user manager API",
+    },
+    servers: [
+      {
+        url: "http://localhost:5000",
+      },
+    ],
+  },
+  apis: ["./routes/*.js"],
+};
+
+const swaggerSpec = swaggerJsdm(options);
+
+// Loading swagger api routes
+app.use("/api-docs", swagger.serve, swagger.setup(swaggerSpec));
 
 /* Loading routes */
 app.use("/api/user", require("./routes/user"));
