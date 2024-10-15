@@ -97,7 +97,7 @@ router.post("/login", userCtrl.login);
  *                   email:
  *                     type: string
  */
-router.get("/allUsers", userCtrl.getAllUsers);
+router.get("/api/user/allUsers", userCtrl.getAllUsers);
 
 /**
  * @swagger
