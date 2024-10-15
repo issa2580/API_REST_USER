@@ -1,16 +1,3 @@
-// const router = require('express').Router();
-// const userCtrl = require('../controller/user');
-
-// /* Routing for login */
-// router.post('/register', userCtrl.register);
-// router.post('/login', userCtrl.login);
-// router.get('/allUsers', userCtrl.getAllUsers)
-// router.get('/:id', userCtrl.getUser)
-// router.put('/:id', userCtrl.updateUser)
-// router.delete('/:id', userCtrl.deleteUser)
-
-// module.exports = router
-
 const router = require("express").Router();
 const userCtrl = require("../controller/user");
 
@@ -97,7 +84,7 @@ router.post("/login", userCtrl.login);
  *                   email:
  *                     type: string
  */
-router.get("/api/user/allUsers", userCtrl.getAllUsers);
+router.get("/allUsers", userCtrl.getAllUsers);
 
 /**
  * @swagger

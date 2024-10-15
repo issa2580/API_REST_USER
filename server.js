@@ -53,7 +53,7 @@ const options = {
   apis: ["./routes/*.js"],
 };
 
-const swaggerSpec = swaggerJsdoc(options); // Corrige ici
+const swaggerSpec = swaggerJsdoc(options);
 
 // Loading swagger api routes
 app.use("/api-docs", swagger.serve, swagger.setup(swaggerSpec));
