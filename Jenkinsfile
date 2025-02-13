@@ -1,9 +1,9 @@
 pipeline {
     agent any
         stages {
-            stage('Git Version') {
+            stage('Git Checkout') {
             steps {
-                sh 'git --version'  
+                git url: 'https://github.com/issa2580/API_REST_USER.git', branch: 'master', credentialsId: 'github-token'
             }
         }
             // stage('Checkout') {
