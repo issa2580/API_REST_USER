@@ -1,26 +1,21 @@
 pipeline {
     agent any
         stages {
-            stage('Checkout') {
+            stage('SonarQube Analysis') {
                 steps {
-                echo 'Hello World'
+                    script {
+                        withSonarQubeEnv('sonar') {
+                            sh '''
+                            docker run --rm \
+                                --network sonarqube-network \
+                                -e SONAR_HOST_URL="$SONAR_HOST_URL" \
+                                -v "$WORKSPACE:/usr/src" \
+                                sonarsource/sonar-scanner-cli
+                            '''
+                        }
+                    }
+                }
             }
-            }
-            // stage('SonarQube Analysis') {
-            //     steps {
-            //         script {
-            //             withSonarQubeEnv('sonar') {
-            //                 sh '''
-            //                 docker run --rm \
-            //                     --network sonarnetwork \
-            //                     -e SONAR_HOST_URL="$SONAR_HOST_URL" \
-            //                     -v "$WORKSPACE:/usr/src" \
-            //                     sonarsource/sonar-scanner-cli
-            //                 '''
-            //             }
-            //         }
-            //     }
-            // }
         // stage ("Docker build ") {
         //     steps {
         //         sh "docker-compose up --build -d"
