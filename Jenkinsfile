@@ -4,11 +4,7 @@ pipeline {
             stage('Checkout') {
                 steps {
                     script {
-                        checkout scmGit(
-                            branches: [[name: '*/master']],
-                            extensions: [],
-                            userRemoteConfigs: [[url: 'https://github.com/issa2580/API_REST_USER.git']]
-                        )
+                        checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-token', url: 'https://github.com/issa2580/API_REST_USER.git']])
                     }
                 }
             }
