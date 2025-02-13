@@ -16,14 +16,15 @@ pipeline {
                             docker run --rm \
                                 --network sonarqube \
                                 -e SONAR_HOST_URL=http://sonarqube:9000 \
-                                -v "$WORKSPACE:/usr/src" \
+                                -v "$WORKSPACE/rootkit:/usr/src" \
+                                -w /usr/src \
                                 sonarsource/sonar-scanner-cli
-
                             '''
                         }
                     }
                 }
             }
+
         // stage ("Docker build ") {
         //     steps {
         //         sh "docker-compose up --build -d"
