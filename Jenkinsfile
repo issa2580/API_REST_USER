@@ -12,6 +12,7 @@ pipeline {
     -v /var/jenkins_home/workspace/rootkit:/usr/src \
     sonarsource/sonar-scanner-cli
 
+                            '''
                         }
                     }
                 }
