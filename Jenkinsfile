@@ -7,11 +7,11 @@ pipeline {
                         withSonarQubeEnv('sonar') {
                             sh '''
                             docker run --rm \
-                                --network sonarqube \
-                                -e SONAR_HOST_URL="$SONAR_HOST_URL" \
-                                -v "$WORKSPACE:/usr/src" \
-                                sonarsource/sonar-scanner-cli
-                            '''
+    --network sonarqube \
+    -e SONAR_HOST_URL=http://sonarqube:9000 \
+    -v /var/jenkins_home/workspace/rootkit:/usr/src \
+    sonarsource/sonar-scanner-cli
+
                         }
                     }
                 }
