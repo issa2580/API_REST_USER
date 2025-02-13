@@ -11,15 +11,13 @@ pipeline {
             stage('SonarQube Analysis') {
                 steps {
                     script {
-                        withSonarQubeEnv('sonar') {
-                            sh '''
-                                docker run \
-                                --rm \
-                                --network sonarqube  \
-                                -e SONAR_HOST_URL="http://sonarqube:9000"  \
-                                -v "$WORKSPACE/rootkit:/usr/src" \
-                                sonarsource/sonar-scanner-cli
-                            '''
+                        nodejs(nodeJSInstallationName: 'nodejs'){
+                            withSonarQubeEnv('sonar') {
+                                sh '''
+                                    npm install sonar-scanner
+                                    npm run sonar
+                                '''
+                            }
                         }
                     }
                 }
