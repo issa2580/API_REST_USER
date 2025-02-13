@@ -1,16 +1,23 @@
 pipeline {
     agent any
         stages {
+            stage('Checkout') {
+                steps {
+                    script {
+                        checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/issa2580/API_REST_USER.git']])
+                    }
+                }
+            }
             stage('SonarQube Analysis') {
                 steps {
                     script {
                         withSonarQubeEnv('sonar') {
                             sh '''
                             docker run --rm \
-    --network sonarqube \
-    -e SONAR_HOST_URL=http://sonarqube:9000 \
-    -v /var/jenkins_home/workspace/rootkit:/usr/src \
-    sonarsource/sonar-scanner-cli
+                                --network sonarqube \
+                                -e SONAR_HOST_URL=http://sonarqube:9000 \
+                                -v "$WORKSPACE:/usr/src" \
+                                sonarsource/sonar-scanner-cli
 
                             '''
                         }
