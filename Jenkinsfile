@@ -1,6 +1,11 @@
 pipeline {
     agent any
         stages {
+            stage('Git Version') {
+            steps {
+                sh 'git --version'  
+            }
+        }
             // stage('Checkout') {
             //     steps {
             //         script {
@@ -8,21 +13,21 @@ pipeline {
             //         }
             //     }
             // }
-            stage('SonarQube Analysis') {
-                steps {
-                    script {
-                        withSonarQubeEnv('sonar') {
-                            sh '''
-                            docker run --rm \
-                                --network sonarnetwork \
-                                -e SONAR_HOST_URL="$SONAR_HOST_URL" \
-                                -v "$WORKSPACE:/usr/src" \
-                                sonarsource/sonar-scanner-cli
-                            '''
-                        }
-                    }
-                }
-            }
+            // stage('SonarQube Analysis') {
+            //     steps {
+            //         script {
+            //             withSonarQubeEnv('sonar') {
+            //                 sh '''
+            //                 docker run --rm \
+            //                     --network sonarnetwork \
+            //                     -e SONAR_HOST_URL="$SONAR_HOST_URL" \
+            //                     -v "$WORKSPACE:/usr/src" \
+            //                     sonarsource/sonar-scanner-cli
+            //                 '''
+            //             }
+            //         }
+            //     }
+            // }
         // stage ("Docker build ") {
         //     steps {
         //         sh "docker-compose up --build -d"
