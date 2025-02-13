@@ -9,26 +9,21 @@ pipeline {
                 }
             }
             stage('SonarQube Analysis') {
-    steps {
-        script {
-            withSonarQubeEnv('sonar') {
-                sh '''
-                docker run --rm \
-                    --network sonarqube \
-                    -e SONAR_HOST_URL="$SONAR_HOST_URL" \
-                    -e SONAR_TOKEN="$SONAR_TOKEN" \
-                    -v "$WORKSPACE/rootkit:/usr/src" \
-                    -w /usr/src \
-                    sonarsource/sonar-scanner-cli \
-                    -Dsonar.projectKey=teste-sonar \
-                    -Dsonar.sources=. \
-                    -Dsonar.host.url=$SONAR_HOST_URL \
-                    -Dsonar.login=$SONAR_TOKEN
-                '''
+                steps {
+                    script {
+                        withSonarQubeEnv('sonar') {
+                            sh '''
+                                docker run \
+                                --rm \
+                                --network sonarqube  \
+                                -e SONAR_HOST_URL="http://sonarqube:9000"  \
+                                -v "$WORKSPACE/rootkit:/usr/src" \
+                                sonarsource/sonar-scanner-cli
+                            '''
+                        }
+                    }
+                }
             }
-        }
-    }
-}
 
 
         // stage ("Docker build ") {
