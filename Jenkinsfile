@@ -7,7 +7,7 @@ pipeline {
                         withSonarQubeEnv('sonar') {
                             sh '''
                             docker run --rm \
-                                --network sonarqube-network \
+                                --network sonarqube \
                                 -e SONAR_HOST_URL="$SONAR_HOST_URL" \
                                 -v "$WORKSPACE:/usr/src" \
                                 sonarsource/sonar-scanner-cli
