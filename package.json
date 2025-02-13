@@ -7,7 +7,8 @@
     "node": "18.x"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "sonar": "sonar-scanner"
   },
   "author": "issa diop",
   "license": "ISC",
