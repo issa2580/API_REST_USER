@@ -52,6 +52,13 @@ pipeline {
                     }
                 }
             }
+            stage('TRIVY') {
+                steps {
+                    script {
+                        sh 'docker exec trivy trivy image martinez42/api-rest-user:latest > trivyimage.txt'
+                    }
+                }
+            }
         // stage ("Kubernetes deploy") {
         //     steps {
         //         sh 'kubectl apply -f kubernetes/deployments'
