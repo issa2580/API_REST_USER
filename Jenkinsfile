@@ -55,7 +55,7 @@ pipeline {
             stage('TRIVY') {
                 steps {
                     script {
-                        sh 'docker exec trivy trivy image --timeout 10m martinez42/api-rest-user:latest > trivyimage.txt'
+                        sh 'docker exec trivy trivy image --timeout 10m martinez42/api-rest-user:latest > /tmp/trivyimage.txt'
                     }
                 }
             }
