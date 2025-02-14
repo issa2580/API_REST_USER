@@ -47,7 +47,6 @@ pipeline {
                     script {
                         withDockerRegistry(credentialsId: 'docker-hub', toolName: 'docker'){  
                             sh "docker build -t ${DOCKER_IMAGE}:${TAG} -f Dockerfile ."
-                            sh "docker tag ${DOCKER_IMAGE}:${TAG} ${DOCKER_IMAGE}:${TAG}"
                             sh "docker push ${DOCKER_IMAGE}:${TAG}"
                         }
                     }
