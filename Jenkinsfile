@@ -1,5 +1,9 @@
 pipeline {
     agent any
+     environment {
+        DOCKER_IMAGE = 'martinez42/api-rest-user'
+        TAG = 'latest'
+    }
         stages {
             stage('Checkout') {
                 steps {
@@ -42,8 +46,9 @@ pipeline {
                 steps {
                     script {
                         docker.withRegistry('docker', 'docker-hub') {
-                            sh "docker tag api-rest-user:latest martinez42/api-rest-user:latest"
-                            sh "docker push martinez42/api-rest-user:latest"
+                            sh "docker build -t ${DOCKER_IMAGE}:${TAG} -f Dockerfile ."
+                            sh "docker tag ${DOCKER_IMAGE}:${TAG} ${DOCKER_IMAGE}:${TAG}"
+                            sh "docker push ${DOCKER_IMAGE}:${TAG}"
                         }
                     }
                 }
