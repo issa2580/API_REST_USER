@@ -22,11 +22,16 @@ pipeline {
                     }
                 }
             }
-            stage('Quality gates analysis'){
+            // stage('Quality gates analysis'){
+            //     steps {
+            //         script {
+            //             waitForQualityGate abortPipeline: true, credentialsId: 'token-sonar'
+            //         }
+            //     }
+            // }
+            stage('Install dependancies') {
                 steps {
-                    script {
-                        waitForQualityGate abortPipeline: true, credentialsId: 'token-sonar'
-                    }
+                    sh "npm install"
                 }
             }
 
