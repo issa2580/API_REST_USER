@@ -22,6 +22,13 @@ pipeline {
                     }
                 }
             }
+            stage('Quality gates analysis'){
+                steps {
+                    script {
+                        WaitForQualityGate abortPipeline: true, credentialsId: 'sonar-tokens'
+                    }
+                }
+            }
 
 
         // stage ("Docker build ") {
